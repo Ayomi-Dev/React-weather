@@ -1,38 +1,260 @@
-.App {
-  text-align: center;
+.weather{
+    width: 100%;
+    margin: 0px auto;
+    min-height: 100vh;
+    margin-top: 50px;
+    position: relative;
+    overflow: hidden;
+}
+.weather-info{
+    width: 95%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 15px;
+    background: rgba(0,0,0,0.2);
+    box-shadow: 0px 5px 7px rgba(0,0,0,0.9);
+    border-radius: 10px;
+    padding: 15px;
+    backdrop-filter: blur(3px);
+}
+.city{
+    margin-bottom: 10px;
+}
+.city h1 span{
+    opacity: .7;
+}
+p{
+    font-size: .8rem;
+    margin: 5px 0;
+}
+.temp{
+    margin-top: 10px;
+}
+.main{
+    margin: 20px 0;
+}
+.main h3{
+    font-size: 1.4rem;
+}
+.cloud, .icon{
+    text-align: center;
+}
+.date, .time{
+    padding: 10px 0;
+    font-size: 1.2rem;
+    opacity: .8;
+    text-align: center;
+}
+.column.three::-webkit-scrollbar{
+    display: none;
+}
+@media screen and (max-width: 600px) {
+    .weather-info{
+        flex-direction: column;
+    }
+    .column{
+        display: flex;
+        width: 100%;
+        margin: 10px auto;
+        padding: 0 10px;
+    }
+    .column.one{
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: row-reverse;
+    }
+    .column.two{
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .temp h1{
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 5px;
+    }
+    .city{
+        margin-bottom: 0;
+    }
+    .city h1{
+        font-size: 1.2rem;
+    }
+    p{
+        margin: 0;
+        font-size: .7rem;
+    }
+    .date h2, .time h2{
+        font-size: 1.2rem;
+    }
+    .column.three{
+        overflow-x: auto;
+        scroll-behavior: smooth;
+    }
+    .main{
+        margin: 10px 5px;
+        width: 150px;
+        height: 100px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: column;
+        border: 1px solid rgba(0,0,0,0.2);
+        text-align: center;
+    }
+    .main h3{
+        font-size: 1rem;
+        text-align: center;
+    }
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+
+/* HOME COMPONENT STYLING */
+.intro{
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.texts{
+    text-align: center;
+}
+.texts h1{
+    font-size: 1.5rem;
+}
+.texts h2{
+    font-size: 1.2rem;
+    margin-top: 10px;
+}
+.texts .fa-poo-storm{
+    font-size: 3rem;
+    transform: translateY(-20px);
+}
+.texts p{
+    margin-top: 10px;
+    font-size: 1.2rem;
+    letter-spacing: 5px;
+}
+.date-time{
+    margin: 15px 0;
+    opacity: .8;
+    font-size: 1.3rem;
+}
+@media screen and (max-width: 600px) {
+    .texts{
+        width: 95%;
+        margin: 0 auto;
+    }
+    .texts h1{
+        font-size: 1.2rem;
+        
+    }
+    .texts h2{
+        font-size: 1rem;
+        margin-top: 10px;
+    }
+    .texts .fa-solid{
+        font-size: 3rem;
+        transform: translateY(-30px);
+    }
+    .texts p{
+        font-size: 1rem;
+    }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
+/* FORECAST COMPONENT STYLING */
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.forecast{
+    width: 95%;
+    margin: 20px auto;
+    position: relative;
 }
-
-.App-link {
-  color: #61dafb;
+.forecast h1{
+    text-align: center;
+    margin: 10px 0;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.forecast .fa{
+    position: absolute;
+    top: 20px;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+.btnLeft{
+    left: 0;
+}
+.btnRight{
+    right: 0;
+}
+.week{
+    max-width: 95%;
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+    scroll-behavior: smooth;
+    margin: 0 auto;
+}
+.week::-webkit-scrollbar, .col3::-webkit-scrollbar{
+    display: none;
+}
+.day{
+    width: 250px;
+    padding: 10px 15px;
+    margin: 10px 20px;
+    border-radius: 10px;
+    transition: .3s;
+    text-align: center;
+    border: 2px solid rgba(0,0,0,0.8);
+    cursor: pointer;
+}
+.day p{
+    opacity: .8;
+    font-size: .8rem;
+}
+.day h3{
+    opacity: .5;
+    font-size: 1rem;
+    text-align: center;
+    margin: 10px 0;
+}
+.day span{
+    margin: 10px 0;
+}
+.day .temp h2{
+    text-align: center;
+    margin-top: 30px;
+    font-size: 1rem;
+}
+.day:hover{
+    background: rgba(0,0,0,0.2);
+    box-shadow: 0px 5px 8px rgba(0,0,0,0.9);
+    backdrop-filter: blur(2px);
+}
+.day:hover .temp h2{
+    font-size: 1.3rem;
+}
+@media screen and (max-width: 600px) {
+    .day .temp h2{
+        font-size: 1.2rem;
+    }
+    .day p{
+        font-size: .7rem;
+    }
+    .forecast h1{
+        text-align: center;
+        margin: 10px 0;
+        font-size: 1.2rem;
+    }
+    .forecast .fa{
+        font-size: 1rem;
+        top: 5px;
+    }
+    .day:hover .temp h2{
+        font-size: 1.2rem;
+    }
+    .day:hover h3{
+       opacity: 1;
+       font-size: 1rem;
+    }
 }
