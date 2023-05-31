@@ -1,6 +1,5 @@
 import { useState } from "react";
 import {Link} from "react-router-dom"
-import Counter from "./Counter";
 
 const Search = ({onCityChange}) => {
     const [cityName, setCityName] = useState('')
