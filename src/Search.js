@@ -8,9 +8,17 @@ const Search = ({onCityChange}) => {
     const handleChange = (e) => {
         setCityName(e.target.value);
     }
-
+    
     const handleSearch = () => {
         onCityChange(cityName)
+    }
+
+    const handleEnterKey = (e) => {
+        if(e.key === "Enter"){
+            onCityChange(cityName);
+            setCityName('')
+        }
+        
     }
 
     return ( 
@@ -20,6 +28,7 @@ const Search = ({onCityChange}) => {
                     placeholder ="Please enter a city"
                     value={cityName}
                     onChange={handleChange}
+                    onKeyDown={handleEnterKey}
                 />
 
                 <Link to='/weather'>

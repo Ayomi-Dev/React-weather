@@ -100,7 +100,8 @@ p{
         justify-content: space-between;
         align-items: center;
         flex-direction: column;
-        border: 1px solid rgba(0,0,0,0.2);
+        border: 1px solid rgba(0,0,0,0.1);
+        border-radius: 10px;
         text-align: center;
     }
     .main h3{
@@ -117,8 +118,10 @@ p{
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
 }
 .texts{
+    overflow: hidden;
     text-align: center;
 }
 .texts h1{
