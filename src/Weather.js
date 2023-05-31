@@ -14,95 +14,97 @@ const Weather = ({city}) => {
     const [dayRise, setDayRise] = useState('')
     const [daySet, setDaySet] = useState('')
 
+    const fetchWeather = async () => {
+        try{
+            setPending(true)
+            setError(null)
 
+            const apiKey = '325ae071e5b172e526ea622fdf06ca9d';
+            const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`
+
+
+            const response = await fetch(url);
+            const data = await response.json()
+            
+            if(response.ok){
+                setWeatherData(data)
+                setPending(false)
+                setError(null)
+            }
+            else{
+                setError(data.message)
+            }
+            
+            // Getting location local date and time
+            const utcSec = parseInt(data.dt, 10) + parseInt(data.timezone, 10) //converting dt and timezone values to integers
+    
+            const utcMilSec = (utcSec * 1000) //converting to milliseconds
+
+            const date = new Date(utcMilSec).toUTCString();// getting exact UTC time value of user input
+    
+            const currentDate = new Date(date);
+            currentDate.setUTCHours(currentDate.getUTCHours() - 1) //reducing the hour of the UTC date value by 1hr
+
+            const fullDate = currentDate.toLocaleDateString(); //getting current date
+            const timeOfDay = currentDate.toLocaleTimeString(); //getting exact time of location
+            const currentDay = currentDate.getDay()
+
+            const daysOfTheWeek = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"]
+            const currentDayOfWeek = daysOfTheWeek[currentDay] //getting name of current day
+    
+
+            // Getting sunrise and sunset time
+
+            const utcSunrise = (data.sys.sunrise + 3600) * 1000
+
+            const sunriseDate = new Date(utcSunrise).toUTCString();
+            const citySunriseTime = new Date(sunriseDate)
+            citySunriseTime.setUTCHours(citySunriseTime.getUTCHours() - 1)
+
+            const sunriseTime = citySunriseTime.toLocaleTimeString();
+
+
+            //calculating sunset time
+            const utcSunset = (data.sys.sunset + 3600) * 1000;
+
+            const sunsetDate = new Date(utcSunset).toUTCString();
+            const citySunsetTime = new Date(sunsetDate);
+            citySunsetTime.setUTCHours(citySunsetTime.getUTCHours() - 1);
+
+            const sunsetTime = citySunsetTime.toLocaleTimeString();
+
+
+            setTimeDisplay(timeOfDay)
+            setDateDisplay(fullDate)
+            setDayName(currentDayOfWeek)
+            setDayRise(sunriseTime)
+            setDaySet(sunsetTime)
+
+            setPending(false)
+
+
+        }
+        catch{
+            setError("Error")
+            setPending('false')
+        }
+    }
      
     
-     useEffect(() => {
+    useEffect(() => {
 
         AOS.init({
-            duration: 2000
+            duration: 1000
         })
-        const fetchWeather = async () => {
-            try{
-                setPending(true)
-                setError(null)
-    
-                const apiKey = '325ae071e5b172e526ea622fdf06ca9d';
-                const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`
-    
-    
-                const response = await fetch(url);
-                const data = await response.json()
-                
-                if(response.ok){
-                    setWeatherData(data)
-                    setPending(false)
-                    setError(null)
-                }
-                else{
-                    setError(data.message)
-                }
-                
-                // Getting location local date and time
-                const utcSec = parseInt(data.dt, 10) + parseInt(data.timezone, 10) //converting dt and timezone values to integers
         
-                const utcMilSec = (utcSec * 1000) //converting to milliseconds
-
-                const date = new Date(utcMilSec).toUTCString();// getting exact UTC time value of user input
-        
-                const currentDate = new Date(date);
-                currentDate.setUTCHours(currentDate.getUTCHours() - 1) //reducing the hour of the UTC date value by 1hr
-
-                const fullDate = currentDate.toLocaleDateString(); //getting current date
-                const timeOfDay = currentDate.toLocaleTimeString(); //getting exact time of location
-                const currentDay = currentDate.getDay()
-    
-                const daysOfTheWeek = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"]
-                const currentDayOfWeek = daysOfTheWeek[currentDay] //getting name of current day
-        
-
-                // Getting sunrise and sunset time
-
-                const utcSunrise = (data.sys.sunrise + 3600) * 1000
-
-                const sunriseDate = new Date(utcSunrise).toUTCString();
-                const citySunriseTime = new Date(sunriseDate)
-                citySunriseTime.setUTCHours(citySunriseTime.getUTCHours() - 1)
-
-                const sunriseTime = citySunriseTime.toLocaleTimeString();
-
-
-                //calculating sunset time
-                const utcSunset = (data.sys.sunset + 3600) * 1000;
-
-                const sunsetDate = new Date(utcSunset).toUTCString();
-                const citySunsetTime = new Date(sunsetDate);
-                citySunsetTime.setUTCHours(citySunsetTime.getUTCHours() - 1);
-
-                const sunsetTime = citySunsetTime.toLocaleTimeString();
-
-
-                setTimeDisplay(timeOfDay)
-                setDateDisplay(fullDate)
-                setDayName(currentDayOfWeek)
-                setDayRise(sunriseTime)
-                setDaySet(sunsetTime)
-
-                setPending(false)
-
-
-            }
-            catch{
-                setError("Error")
-                setPending('false')
-            }
-        }
-
         if(city){
             fetchWeather();
         }
     }, [city])
- 
+    
+    const refreshPage = () => {
+        fetchWeather();
+    }
 
     return ( 
 
@@ -114,6 +116,7 @@ const Weather = ({city}) => {
 
             {weatherData && (<div className="display">
                 
+                <p onClick={ refreshPage } style={{textAlign: "center"}}> <i className="fa fa-rotate-right" /> Refresh</p>
                 <div className="weather-info" data-aos="zoom-in">
 
                     <div className="column one">

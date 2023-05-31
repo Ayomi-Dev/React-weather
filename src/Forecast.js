@@ -79,10 +79,10 @@ const Forecast = ({cityChange}) => {
             
         }
         
-        if(cityChange){
-            fetchWeather();
-        }
-        // fetchWeather();
+        // if(cityChange){
+        //     fetchWeather();
+        // }
+        fetchWeather();
         
     }, [cityChange])
     
@@ -114,7 +114,7 @@ const Forecast = ({cityChange}) => {
             <i className="fa btnRight fa-arrow-right-long" onClick = { scrollRight } ></i>
 
             {loading && <p style={{fontSize: ".6rem"}}> Loading daily forecasts </p>}
-            {error && <p style={{fontSize: ".6rem"}}> Sorry, could not get full forecast at the moment. </p>}
+            {error && <p style={{fontSize: ".6rem"}}> Updating time... </p>}
            
 
             <div className="week" ref={ weekRef } >
